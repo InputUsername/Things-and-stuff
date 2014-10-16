@@ -1,0 +1,9 @@
+An interpreter for the joke esoteric programming language Poop (version 1.0).
+Use it as follows:
+   ruby poop.rb [parameters] filename
+Supported parameters are:
+   -d     Shows debug information
+
+This interpreter does not comply with the standard; the euro sign has been replaced with `, because InputUsername is too lazy.
+
+Read more about Poop: http://esolangs.org/wiki/Poop
