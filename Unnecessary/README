@@ -1,4 +1,11 @@
 This is an interpreter (a compiler, too, maybe, someday) for the Unnecessary programming language.
+Use it as follows:
+   ruby unnecessary.rb [parameters] filename
+
+Supported parameters are:
+   -d     Shows debug information
+   -c     Compiles the programm, instead of interpreting it
+
 Read more about Unnecessary here:
 	http://yiap.nfshost.com/esoteric/unnecessary/unnecessary.html
 	http://esolangs.org/wiki/Unnecessary
