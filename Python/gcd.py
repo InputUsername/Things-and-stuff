@@ -24,6 +24,7 @@ def binary_gcd(a, b):
 			return binary_gcd(int((b - a)/2), a)
 
 # Really naive GCD implementation using a function that finds all divisors
+# It's also incorrect
 def naive_gcd(a, b):
 	def divisors(n):
 		d = []
@@ -36,18 +37,28 @@ def naive_gcd(a, b):
 	common = list(set(da).intersection(db)) # find the set intersection as a list
 	return common[-1] # return the last element of this list
 
+def euclidean_gcd(a, b):
+	if b == 0:
+		return a
+	return euclidean_gcd(b, a % b)
+
 # test the algorithms
 funcs = {
 	"binary_gcd": binary_gcd,
-	"naive_gcd": naive_gcd
+	"naive_gcd": naive_gcd,
+	"euclidean_gcd": euclidean_gcd
 }
 tests = [[54, 24, 6], [42, 56, 14], [2235, 642, 3], [5325, 92325, 75]]
+timing = {}
 
 for name, func in funcs.items():
 	start = time.clock()
 	for test in tests:
 		a, b, c = test[0], test[1], test[2]
 		r = func(a, b)
-		print(name + "(" + str(a) + "," + str(b) + ") = " + str(r))
-		print(" => correct" if r == c else " => incorrect (" + str(r) + " != " + str(c) + ")")
-	print("time: " + str(time.clock() - start) + " s")
+		print(name + "(" + str(a) + "," + str(b) + ") = " + str(r) + ("\t\t=> correct" if r == c else "\t\t=> incorrect\t(" + str(r) + " != " + str(c) + ")"))
+	timing[name] = time.clock() - start
+
+print("\nTiming:")
+for name, time in timing.items():
+	print(name + ":\t" + str(time) + " s")
