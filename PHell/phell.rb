@@ -1,6 +1,6 @@
 require 'sxp'
 
-s_expr = SXP::Reader::CommonLisp.read gets.chomp or '()'
+s_expr = SXP::Reader::CommonLisp.read(gets.chomp or '()')
 
 def quote expr
 	
