@@ -2,3 +2,11 @@ An interpreter for the qq esolang.
 See http://esolangs.org/wiki/Qq for more information.
 
 Find the correct implementation in the v1 directory (https://github.com/InputUsername/Things-and-stuff/tree/master/qq/v1).
+
+Usage:
+  qq <file | flag>
+
+Options:
+  -p or --parse     : Enter a parse-only interactive shell
+  -i or --interpret : Enter an interactive shell
+  -h or --help      : Show usage
