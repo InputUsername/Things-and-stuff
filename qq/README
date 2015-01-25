@@ -10,3 +10,5 @@ Options:
   -p or --parse     : Enter a parse-only interactive shell
   -i or --interpret : Enter an interactive shell
   -h or --help      : Show usage
+
+Only the '9' command is not fully working. Will fix someday.
