@@ -1,0 +1,4 @@
+An interpreter for the qq esolang.
+See http://esolangs.org/wiki/Qq for more information.
+
+Find the correct implementation in the v1 directory (https://github.com/InputUsername/Things-and-stuff/tree/master/qq/v1).
