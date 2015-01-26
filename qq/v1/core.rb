@@ -1,12 +1,20 @@
 require 'io/console'
 
 #TODO: correctly implement generated commands (they don't work as integers yet)
+#TODO: correctly evaluate generated commands
 
 module QQ
   class Lang
-    def self.is_int?(val); val.is_a?(Fixnum); end
+    RANDOM_SEED = rand(0..15)
+
     def self.is_quoted?(val); val.is_a?(Array) and val[0] == :quoted; end
     def self.is_generated?(val); val.is_a?(Array) and val[0] == :generated; end
+    def self.is_int?(val); val.is_a?(Fixnum) or self.is_generated?(val); end
+
+    def self.generated_to_i(val)
+        return if !self.is_generated?(val)
+        return val.size * RANDOM_SEED
+    end
 
     ## BNF of qq:
     # program    := <expression>*
@@ -95,6 +103,9 @@ module QQ
       when 0
         raise "arg:1 of cmd:0 must be integer (got #{arg[0]})" if !QQ::Lang.is_int?(arg[0])
 
+        # Convert arg[0] to an integer if it's a generated command
+        #arg[0] = QQ::Lang.generated_to_i(arg[0]) if QQ::Lang.is_generated?(arg[0])
+
         new_cmd = arg[0]
         new_arg = arg[1..-1]
         new_arg.map! {|a| QQ::Lang.is_quoted?(a) ? interpret(a) : a }
@@ -126,12 +137,20 @@ module QQ
         raise "arg:1 of cmd:4 must be integer (got #{arg[0]})" if !QQ::Lang.is_int?(arg[0])
         raise "arg:2 of cmd:4 must be integer (got #{arg[1]})" if !QQ::Lang.is_int?(arg[1])
 
+        # Convert to int
+        arg[0] = QQ::Lang.generated_to_i(arg[0]) if QQ::Lang.is_generated?(arg[0])
+        arg[1] = QQ::Lang.generated_to_i(arg[1]) if QQ::Lang.is_generated?(arg[1])
+
         return_value = arg[0] + arg[1]
 
       # Return arg:1 [int] - arg:2 [int] - if the result is negative, add them instead
       when 5
         raise "arg:1 of cmd:5 must be integer (got #{arg[0]})" if !QQ::Lang.is_int?(arg[0])
         raise "arg:2 of cmd:5 must be integer (got #{arg[1]})" if !QQ::Lang.is_int?(arg[1])
+
+        # Convert to int
+        arg[0] = QQ::Lang.generated_to_i(arg[0]) if QQ::Lang.is_generated?(arg[0])
+        arg[1] = QQ::Lang.generated_to_i(arg[1]) if QQ::Lang.is_generated?(arg[1])
 
         return_value = arg[0] - arg[1]
         if return_value < 0 then
@@ -146,16 +165,28 @@ module QQ
       when 7
         raise "arg:1 of cmd:7 must be integer (got #{arg[0]})" if !QQ::Lang.is_int?(arg[0])
 
+        # Convert to int
+        # See TODO at top
+        arg[0] = QQ::Lang.generated_to_i(arg[0]) if QQ::Lang.is_generated?(arg[0])
+
         print arg[0].chr
         return_value = arg[0]
 
       # If arg:1 is not zero, return arg:2, else return arg:3
       when 8
+
+        # Convert to int
+        # TODO: fix
+        arg[0] = QQ::Lang.generated_to_i(arg[0]) if QQ::Lang.is_generated?(arg[0])
+
         return_value = (arg[0] == 0 ? arg[2] : arg[1])
 
       # Very complicated stuff, command creation shit
       when 9
         raise "arg:1 of cmd:9 must be integer (got #{arg[0]})" if !QQ::Lang.is_int?(arg[0])
+
+        # Convert to int
+        # TODO: copy code to here
 
         generated = [:generated] + arg
         return_value = generated
