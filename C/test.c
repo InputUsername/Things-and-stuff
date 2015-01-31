@@ -6,7 +6,7 @@ typedef struct {
 
 int main(int argc, char* argv[])
 {
-	thing* Willy = malloc(sizeof(test));
+	thing* Willy = malloc(sizeof(thing));
 	free(Willy); // I've always wanted to do this
 
 	return 0;
