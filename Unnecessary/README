@@ -1,10 +1,12 @@
-This is an interpreter (a compiler, too, maybe, someday) for the Unnecessary programming language.
-Use it as follows:
-   ruby unnecessary.rb [parameters] filename
+In this directory you'll find an interpreter and a compiler for the Unnecessary programming language.
 
+Use the interpreter as follows:
+   ruby ./unnecessary.rb [parameters] filename
 Supported parameters are:
    -d     Shows debug information
-   -c     Compiles the programm, instead of interpreting it
+
+Use the compiler as follows:
+   ./UnnecessaryCompiler <file>
 
 Read more about Unnecessary here:
 	http://yiap.nfshost.com/esoteric/unnecessary/unnecessary.html
