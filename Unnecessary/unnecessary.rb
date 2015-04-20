@@ -1,6 +1,8 @@
 # Unnecessary interpreter
 # Written by InputUsername
 
+# !!! TODO: remove compiler as it is in a separate program !!!
+
 #Parameter checking
 if ARGV.size < 1 then
 	puts 'Usage:'
