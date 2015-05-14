@@ -8,19 +8,32 @@ void usage(char *argv0) {
 	std::cerr << "-m enables Modular SNUSP, providing the @ and # instructions" << std::endl;
 }
 
+void parseArgs(int argc, char* argv[], bool& useModular, std::string& fileName) {
+	if (argc == 2) {
+		fileName = argv[1];
+	}
+	else if (argc >= 3) {
+		if (argv[1] == "-m") {
+			useModular = true;
+			fileName = argv[2];
+		}
+		else if (argv[2] == "-m") {
+			useModular = true;
+			fileName = argv[1];
+		}
+	}
+}
+
 int main(int argc, char *argv[]) {
 	if (argc < 2) {
-		usage();
+		usage(argv[0]);
 	}
 
 	bool useModular = false;
-	std::string
+	std::string fileName;
 
-	if (argc == 3) {
-		if (argv[1] == "-m") {
-			useModular = true;
-		}
-	}
+	// useModular and fileName are passed by reference
+	parseArgs(argc, argv, useModular, fileName);
 
 	Interpreter interpreter(fileName, useModular);
 	

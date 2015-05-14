@@ -1,6 +1,8 @@
 #ifndef _INTERPRETER_H
 #define _INTERPRETER_H
 
+#include <string>
+
 #include "Codespace.h"
 #include "InstructionPointer.h"
 
