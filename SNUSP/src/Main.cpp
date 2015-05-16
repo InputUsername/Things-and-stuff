@@ -1,47 +1,33 @@
 #include <iostream>
 #include <string>
+#include <exception>
 
 #include "Interpreter.h"
 
-void usage(char *argv0) {
-	std::cerr << "Usage: " << argv0 << "[-m] <file>" << std::endl;
-	std::cerr << "-m enables Modular SNUSP, providing the @ and # instructions" << std::endl;
-}
+#define MEMORY_SIZE 250
 
-void parseArgs(int argc, char* argv[], bool& useModular, std::string& fileName) {
-	if (argc == 2) {
-		fileName = argv[1];
-	}
-	else if (argc >= 3) {
-		if (argv[1] == "-m") {
-			useModular = true;
-			fileName = argv[2];
-		}
-		else if (argv[2] == "-m") {
-			useModular = true;
-			fileName = argv[1];
-		}
-	}
+void usage(char *argv0) {
+	std::cerr << "Usage: " << argv0 << " <file>" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
-	if (argc < 2) {
+	if (argc != 2) {
 		usage(argv[0]);
+
+		return 1;
 	}
 
-	bool useModular = false;
-	std::string fileName;
+	std::string fileName(argv[1]);
 
-	// useModular and fileName are passed by reference
-	parseArgs(argc, argv, useModular, fileName);
-
-	Interpreter interpreter(fileName, useModular);
+	Interpreter interpreter(fileName, MEMORY_SIZE);
 	
 	try {
 		interpreter.run();
 	}
 	catch (std::exception e) {
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
+
+		return 1;
 	}
 
 	return 0;
