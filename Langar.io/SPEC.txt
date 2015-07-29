@@ -1,0 +1,87 @@
+Langar.io Specification
+
+Langar.io is a two-dimensional, stack-based esoteric programming language made by InputUsername
+in 2015. It is inspired by and loosely based on the (in)famous web game Agar.io.
+In Agar.io, the player controls a blob of mass and must gain mass by eating other
+blobs.
+
+The name "Langar.io" is an uncreative combination of "language" and "Agar.io".
+
+Language overview
+--
+A Langar.io program consists of cells, placed on a grid. Cells are read from the
+program file, left to right, top to bottom. Cells can contain numbers, actions
+or nothing (empty). The player (instruction pointer) moves across the grid, one
+cell at a time, consuming the contents of the cell and executing instructions
+according to the contents. Most instructions operate on the stack, which is an
+unbounded stack of unsigned 8-bit integers.
+
+An example program might look something like this:
+
+(  ) (  ) (10) (5 )
+(3 ) (S ) (1 ) (10)
+(1 ) (15) (  ) (W )
+(S ) (  ) (5 ) (3 )
+
+This program contains mostly rubbish, and it probably doesn't even work, but it
+does present all language features:
+- number cells, brackets containing any combination of digits 0-9 and spaces: (10), ( 0  ), (   1 ), (6  6  6)
+- action cells, brackets containing an action and any amount of spaces: (S) or (W)
+- empty cells, indicated with brackets containing optional spaces: (  )
+
+Program execution
+--
+The player starts in the top-left cell. At the start of the program, the player
+has 10 mass. Every step, the player consumes the cell it's on. If the cell is a
+number cell, and the player's mass is larger than or equal to the cell's value,
+the cell is consumed, otherwise, the program ends. Empty cells and action cells
+are always consumed. After a cell is consumed, it is permanently removed from the
+grid and an empty cell takes its place.
+
+Consuming a number cell causes the player's mass to increase with the number
+indicated by the cell. Additionally, it performs a function. Documentation on these
+functions has not been written yet.
+
+Action cells, when consumed, perform one of two possible actions:
+- An 'S' action cell "splits" the player, dropping half of its mass in the cell it
+is currently at, making that cell a number cell. The player will keep the other
+half of the mass. In case the player's mass is odd, the mass will be split in two
+and the player will keep the larger part.
+- A 'W' action cell drops some of the player's mass in the current cell. The amount
+of mass that will be dropped is indicated by the current value that resides on the
+top of the stack. In case the stack is empty, the program ends. If the mass to
+be dropped is larger than the player's mass, nothing happens.
+
+When an empty cell is consumed, nothing happens. The empty cell is replaced with
+another empty cell, so essentially empty cells are NOPs.
+
+After consuming a cell, the player is ready to move on to the next cell. To do this,
+it checks in every direction for a blob of mass, except for the direction it came
+from in the previous step. As it's a rather confusing concept and hard to explain
+in words, here is a diagram depicting the player's movement:
+
+( ) ( ) (3) ( ) ( ) ( )
+( ) ( ) (|) ( ) ( ) ( )
+( ) (P) (X) (-) (5) (3)
+( ) ( ) (|) ( ) ( ) ( )
+( ) ( ) (W) ( ) ( ) (0)
+( ) ( ) (|) ( ) (2) ( )
+(S) ( ) (1) ( ) ( ) ( )
+
+X represents the player's current location and P stands for the location in the
+previous step.
+
+As you can see in the diagram, the player checks its movement pattern along the
+lines (| and -). If the check hits a number cell, it stops checking in that direction.
+The check passes through empty cells (obviously) and action cells.
+Once every direction has been checked, the direction pointing to the highest number
+cell is selected for movement. The player then proceeds to move one cell in this
+direction. In the example above, the player would move one cell to the right.
+Moving costs one mass.
+
+If the player, at any point, hits 0 (or less) mass, the program ends.
+
+Example programs
+--
+Example programs have not been written as of yet, except for the two nonsensical
+examples that can be found earlier on this page.
