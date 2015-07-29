@@ -1,0 +1,3 @@
+An esoteric programming language made by me, inspired by Agar.io.
+Read more in SPEC.txt or on http://esolangs.org/wiki/Langar.io.
+Lua implementation can be found under src/langar.lua.
