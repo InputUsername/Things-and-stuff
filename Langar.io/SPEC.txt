@@ -1,4 +1,4 @@
-Langar.io Specification 1.0
+Langar.io Specification 1.1
 
 Langar.io is a two-dimensional, stack-based esoteric programming language made by InputUsername
 in 2015. It is inspired by and loosely based on the (in)famous web game Agar.io.
@@ -25,9 +25,28 @@ An example program might look something like this:
 
 This program contains mostly rubbish, and it probably doesn't even work, but it
 does present all language features:
-- number cells, brackets containing any combination of digits 0-9 and spaces: (10), ( 0  ), (   1 ), (6  6  6)
-- action cells, brackets containing an action and any amount of spaces: (S) or (W)
-- empty cells, indicated with brackets containing optional spaces: (  )
+- number cells, parentheses containing any combination of digits 0-9 and spaces: (10), ( 0  ), (   1 ), (6  6  6)
+- action cells, parentheses containing an action and any amount of spaces: (S) or (W)
+- empty cells, indicated with parentheses containing optional spaces: (  )
+
+A program file may contain any amount of whitespace, as long as rows of the grid
+are separated by newlines. Spaces are recommended to organise the code. Any rows
+that contain fewer cells than the largest amount of cells on some row are padded
+with empty cells. Illegal cells, for example, cells containing anything other
+than digits, S or W, or spaces, will be ignored. Anything not enclosed in parentheses
+will also be ignored.
+
+For example:
+
+()(35 3 )(d)(  )(3 )(S)(W)(5 5)
+(   ) ()(.)kl;jkd(3434)(2)
+( ) (23) (S)(W)(S    )(40 5   9)
+
+This program, when parsed, will produce the following grid:
+
+(    ) (353 ) (    ) (3   ) (S   ) (W   ) (55  )
+(    ) (    ) (3434) (2   ) (    ) (    ) (    )
+(    ) (23  ) (S   ) (W   ) (S   ) (4059) (    )
 
 Program execution
 --
