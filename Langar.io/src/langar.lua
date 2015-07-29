@@ -1,6 +1,8 @@
 -- Lua implementation of Langar.io
 -- InputUsername 2015
 
+-- Version 1.1
+
 -- Constants
 EMPTY = " "
 
@@ -55,6 +57,7 @@ local dir = -1
 local ip = {x = 1, y = 1}
 local mass = 10
 
+-- Stack functions
 local stack = {}
 
 local function push(value)
@@ -66,15 +69,20 @@ local function pop()
 	return value
 end
 
+local function doFunction(number)
+	--TODO: functions
+end
+
 while true do
 	local cell = program[ip.y][ip.x]
 
 	if type(cell) == "number" then
 		if mass >= cell then
-
+			doFunction(cell)
 		else
 			break
 		end
+		mass = mass + cell
 		program[ip.y][ip.x] = EMPTY
 	elseif cell == "S" then
 		if mass % 2 == 0 then
@@ -97,3 +105,4 @@ while true do
 end
 
 print("Stack: " .. table.concat(stack, ", "))
+print("Player mass: " .. mass)
