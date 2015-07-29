@@ -1,4 +1,4 @@
-Langar.io Specification
+Langar.io Specification 1.0
 
 Langar.io is a two-dimensional, stack-based esoteric programming language made by InputUsername
 in 2015. It is inspired by and loosely based on the (in)famous web game Agar.io.
