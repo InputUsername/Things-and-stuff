@@ -66,6 +66,12 @@ Langar.io supports the following functions:
 	1	Push the player's mass onto the stack.
 	2	Pop the top of the stack and output it as an ASCII character.
 	3	Get one byte of input and push it onto the stack. EOF ends the program.
+	4	Pop two numbers, add them together and push the result.
+	5	Pop two numbers, subtract the number that was popped first from the second
+		number and push the result.
+	6	Pop two numbers, multiply them and push the result.
+	7	Pop two numbers, divide the number that was popped first by the second
+		(using integer division) and push the result, then the rest (if it's not 0).
 
 	TODO: more instructions
 
