@@ -79,12 +79,14 @@ local function push(value)
 	stack[#stack + 1] = value
 end
 local function pop()
+	if #stack == 0 then return nil end
 	local value = stack[#stack]
 	stack[#stack] = nil
 	return value
 end
 
--- Functions
+-- Execute a function indicated by the number
+-- Returns true if successful, false if not
 local function doFunction(number)
 	number = number % 16
 
@@ -92,18 +94,43 @@ local function doFunction(number)
 	if number == 1 then
 		push(mass)
 
-	-- 2: output top of stack as a character
+	-- 2: pop one byte and output as a character
 	elseif number == 2 then
 		local value = pop()
-		io.write(string.char(pop))
+		if not value then return false end
+		io.write(string.char(value))
 
 	-- 3: get one byte of input and push
 	elseif number == 3 then
 		local input = io.read(1)
-		if not input then
-			return false
-		end
+		if not input then return false end
 		push(string.byte())
+
+	-- 4: pop two numbers, add, push the result
+	elseif number == 4 then
+		local first, second = pop(), pop()
+		if not first or not second then return false end
+		push(first + second)
+
+	-- 5: subtract
+	elseif number == 5 then
+		local first, second = pop(), pop()
+		if not first or not second then return false end
+		push(second - first)
+
+	-- 6: multiply
+	elseif number == 6 then
+		local first, second = pop(), pop()
+		if not first or not second then return false end
+		push(first * second)
+
+	-- 7: integer division
+	elseif number == 7 then
+		local first, second = pop(), pop()
+		if not first or not second then return false end
+		push(floor(first / second))
+		push(first % second)
+
 	end
 
 	return true
