@@ -1,4 +1,4 @@
-Langar.io Specification 1.1
+Langar.io Specification 1.2
 
 Langar.io is a two-dimensional, stack-based esoteric programming language made by InputUsername
 in 2015. It is inspired by and loosely based on the (in)famous web game Agar.io.
@@ -58,8 +58,16 @@ are always consumed. After a cell is consumed, it is permanently removed from th
 grid and an empty cell takes its place.
 
 Consuming a number cell causes the player's mass to increase with the number
-indicated by the cell. Additionally, it performs a function. Documentation on these
-functions has not been written yet.
+indicated by the cell. Additionally, it calls a function. The function that
+will be called depends on the cell's value MOD 16.
+
+Langar.io supports the following functions:
+
+	1	Push the player's mass onto the stack.
+	2	Pop the top of the stack and output it as an ASCII character.
+	3	Get one byte of input and push it onto the stack. EOF ends the program.
+
+	TODO: more instructions
 
 Action cells, when consumed, perform one of two possible actions:
 - An 'S' action cell "splits" the player, dropping half of its mass in the cell it
@@ -68,8 +76,9 @@ half of the mass. In case the player's mass is odd, the mass will be split in tw
 and the player will keep the larger part.
 - A 'W' action cell drops some of the player's mass in the current cell. The amount
 of mass that will be dropped is indicated by the current value that resides on the
-top of the stack. In case the stack is empty, the program ends. If the mass to
-be dropped is larger than the player's mass, nothing happens.
+top of the stack. This value will be popped. In case the stack is empty, the
+program ends. If the mass to be dropped is larger than the player's mass, nothing
+happens.
 
 When an empty cell is consumed, nothing happens. The empty cell is replaced with
 another empty cell, so essentially empty cells are NOPs.
