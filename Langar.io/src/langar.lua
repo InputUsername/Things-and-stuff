@@ -27,8 +27,12 @@ local width = 0
 
 for line in file:lines() do
 	local matches = {}
+	-- Match only valid cells
 	for m in string.gmatch(line, "%(([%dSW ]-)%)") do
-		if m ~= "S" and m ~= "W" then
+		-- If the cell contains an 'S' or 'W' action
+		if string.find(m, "[SW]") then
+			m = string.gsub(m, "[^SW]", "")
+		else
 			-- Remove non-numeric characters
 			m = string.gsub(m, "%D", "")
 
@@ -52,6 +56,16 @@ for i, row in ipairs(program) do
 		end
 	end
 end
+
+--[[ DEBUG
+for i, row in ipairs(program) do
+	io.write(i..": ")
+	for j, col in ipairs(row) do
+		io.write("["..col.."]\t")
+	end
+	print()
+end
+]]
 
 -- 0 is up, 1 is right, 2 is down, 3 is left, -1 is black magic
 local dir = -1
@@ -91,6 +105,7 @@ local function doFunction(number)
 		end
 		push(string.byte())
 	end
+
 	return true
 end
 
