@@ -1,7 +1,8 @@
 -- Lua implementation of Langar.io
 -- InputUsername 2015
 
--- Version 1.1
+-- Version 1.2
+-- Implements Langar.io 1.2
 
 -- Constants
 EMPTY = " "
@@ -69,8 +70,28 @@ local function pop()
 	return value
 end
 
+-- Functions
 local function doFunction(number)
-	--TODO: functions
+	number = number % 16
+
+	-- 1: push the player's mass
+	if number == 1 then
+		push(mass)
+
+	-- 2: output top of stack as a character
+	elseif number == 2 then
+		local value = pop()
+		io.write(string.char(pop))
+
+	-- 3: get one byte of input and push
+	elseif number == 3 then
+		local input = io.read(1)
+		if not input then
+			return false
+		end
+		push(string.byte())
+	end
+	return true
 end
 
 while true do
@@ -78,7 +99,8 @@ while true do
 
 	if type(cell) == "number" then
 		if mass >= cell then
-			doFunction(cell)
+			local continue = doFunction(cell)
+			if not continue then break end
 		else
 			break
 		end
