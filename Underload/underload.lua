@@ -95,6 +95,7 @@ else
 	local file = io.open(arg[1], "r")
 	if not file then
 		print("Error: could not open " .. arg[1])
+		error()
 	end
 	local code = file:read("*a")
 	file:close()
