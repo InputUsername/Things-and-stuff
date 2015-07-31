@@ -1,5 +1,0 @@
-Simple interpreter/runner/compiler/whatever for the Pyth programming language.
-See http://esolangs.org/wiki/Pyth for more information.
-
-prep.py is the Pyth->Python compiler
-pyth.py is the Pyth runner.
