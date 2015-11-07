@@ -104,7 +104,7 @@ local function doFunction(number)
 	elseif number == 3 then
 		local input = io.read(1)
 		if not input then return false end
-		push(string.byte())
+		push(string.byte(input))
 
 	-- 4: pop two numbers, add, push the result
 	elseif number == 4 then
